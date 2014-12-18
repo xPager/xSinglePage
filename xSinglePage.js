@@ -1,10 +1,37 @@
+/*#####################################################################################################################
+                                                                                                              
+                    PPPPPPPPPPPPPPPPP                                                                              
+                    P::::::::::::::::P                                                                             
+                    P::::::PPPPPP:::::P                                                                            
+                    PP:::::P     P:::::P                                                                           
+xxxxxxx      xxxxxxx  P::::P     P:::::Paaaaaaaaaaaaa     ggggggggg   ggggg    eeeeeeeeeeee    rrrrr   rrrrrrrrr   
+ x:::::x    x:::::x   P::::P     P:::::Pa::::::::::::a   g:::::::::ggg::::g  ee::::::::::::ee  r::::rrr:::::::::r  
+  x:::::x  x:::::x    P::::PPPPPP:::::P aaaaaaaaa:::::a g:::::::::::::::::g e::::::eeeee:::::eer:::::::::::::::::r 
+   x:::::xx:::::x     P:::::::::::::PP           a::::ag::::::ggggg::::::gge::::::e     e:::::err::::::rrrrr::::::r
+    x::::::::::x      P::::PPPPPPPPP      aaaaaaa:::::ag:::::g     g:::::g e:::::::eeeee::::::e r:::::r     r:::::r
+     x::::::::x       P::::P            aa::::::::::::ag:::::g     g:::::g e:::::::::::::::::e  r:::::r     rrrrrrr
+     x::::::::x       P::::P           a::::aaaa::::::ag:::::g     g:::::g e::::::eeeeeeeeeee   r:::::r            
+    x::::::::::x      P::::P          a::::a    a:::::ag::::::g    g:::::g e:::::::e            r:::::r            
+   x:::::xx:::::x   PP::::::PP        a::::a    a:::::ag:::::::ggggg:::::g e::::::::e           r:::::r            
+  x:::::x  x:::::x  P::::::::P        a:::::aaaa::::::a g::::::::::::::::g  e::::::::eeeeeeee   r:::::r            
+ x:::::x    x:::::x P::::::::P         a::::::::::aa:::a gg::::::::::::::g   ee:::::::::::::e   r:::::r            
+xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     eeeeeeeeeeeeee   rrrrrrr            
+                                                                   g:::::g                                         
+                                                       gggggg      g:::::g                                         
+                                                       g:::::gg   gg:::::g                                         
+                                                        g::::::ggg:::::::g                                         
+                                                         gg:::::::::::::g                                          
+                                                           ggg::::::ggg                                            
+                                                              gggggg
+															  
+xPager - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.2.5
+#####################################################################################################################*/
+
 /*
 Single Page
-@ Manuel Kleinert
-Version 1.2.4
 */
 
-var singlePage = function(options,fx){
+var xSinglePage = function(options,fx){
 
     this.options = $.extend({
 		topStart:0,
@@ -12,13 +39,13 @@ var singlePage = function(options,fx){
 		activeArticle:false,
         keyControl:true,
         touchControl:true, // Touch Control
-		loader:$("#iMLoader"),
-		navLinks:$('.iMNavigation ul li a,#mobnav ul li a,.singlepagelink'),
-        buttonLeft:$(".imsinglepage .button_left"),
-        buttonRight:$(".imsinglepage .button_right"),
-		navHeight:$(".iMNavigation").height(),
-        section:$(".imsinglepage section"),
-		article:$(".imsinglepage section article"),
+		loader:$("#Loader"),
+		navLinks:$('.Navigation ul li a,#mobnav ul li a'),
+        buttonLeft:$("#xSinglePage .button_left"),
+        buttonRight:$("#xSinglePage .button_right"),
+		navHeightObj:$(".Navigation"),
+        section:$("#xSinglePage section"),
+		article:$("#xSinglePage section article"),
 		body:$("html, body"),
         window:$(window),
 		easing:"easeInOutExpo",
@@ -30,11 +57,12 @@ var singlePage = function(options,fx){
     for(var name in this.options){eval("this."+name+"=this.options."+name);}
     
     this.activeArticle = this.article.first();
+    this.activeSection = this.section.first();
     
     this.init();
 }
 
-singlePage.prototype = {
+xSinglePage.prototype = {
     init:function(){
         var self = this;
         
@@ -42,6 +70,7 @@ singlePage.prototype = {
         this.initGoogleAnalytics();
         
         this.activeArticle = this.getArtikelbyId(this.article.first().attr("data-id"));
+        this.activeSection = this.getSectionByArtikel(this.activeArticle);
         
         this.window.resize(function(){
             self.setSize();
@@ -99,6 +128,8 @@ singlePage.prototype = {
             self.setActiveSection();
             self.setStatus();
         });
+        
+        this.setStatus();
     },
     
     start:function(){
@@ -123,7 +154,7 @@ singlePage.prototype = {
         var obj = this.activeArticle;
         var pos = $(obj).position();
         if(pos){
-            this.body.stop().animate({scrollTop:pos.top-this.navHeight},this.speed,this.easing,function(){
+            this.body.stop().animate({scrollTop:pos.top-this.navHeightObj.height()},this.speed,this.easing,function(){
                 var content = $(obj).parent(".slider_content");
                 var marginleft = parseInt(content.css("marginLeft"));
                 if(marginleft != "NaN"){
@@ -171,17 +202,31 @@ singlePage.prototype = {
     
     setSize:function(fx){
         this.article.width(this.body.width());
-        this.scrollTo(fx);
+        if(!this.detectmob()){
+            this.scrollTo(fx);
+        }
     },
     
     getArtikelbyId:function(id){
-        return $(".imsinglepage section article[data-id='"+id+"']");
+        return this.section.find("article[data-id='"+id+"']");
     },
     
     getArtikelbyTitel:function(titel){
-        return $(".imsinglepage section article[data-titel='"+titel+"']");
+        return this.section.find("article[data-titel='"+titel+"']");
     },
     
+    getSectionByArtikel:function(obj){
+        return obj.parents("section");
+    },
+    
+    hasChild:function(){
+        if(this.activeSection.find("article").length >1){
+            return true;
+        }else{
+            return false;
+        }
+    },
+
     setActiveSection:function(){
         var self = this;
         this.section.each(function(i,obj){
@@ -189,7 +234,10 @@ singlePage.prototype = {
             
             if($(window).scrollTop()+ $(window).height() < $(document).height()-200){
                 if(pos.top < self.top+250 && (pos.top+$(obj).height()) > self.top+250){
+                    
                     self.activeArticle = self.getArtikelbyId($(this).attr("data-pos"));
+                    self.activeSection = self.getSectionByArtikel(self.activeArticle);
+                    
                     var titel = self.activeArticle.attr("data-titel");
                     self.setGoogleAnalyticsTrack(titel);
                     self.setHash(titel);
@@ -197,32 +245,38 @@ singlePage.prototype = {
             }else{
                 //Letzter Artikel Aktiv falls zu klein
                 self.activeArticle = self.getArtikelbyId($(self.section).last().attr("data-pos"));
+                self.activeSection = self.getSectionByArtikel(self.activeArticle);
+                
                 var titel = self.activeArticle.attr("data-titel");
                 self.setGoogleAnalyticsTrack(titel);
                 self.setHash(titel);
             }
         });
     },
-    
+
     setStatus:function(){
         this.navLinks.removeClass("active");
         
         // Nav (aktiv)
         var id = this.activeArticle.parents("section").attr("data-pos");
-        $(".iMNavigation ul li a[data-id='"+id+"'],#mobnav ul li a[data-id='"+id+"']").addClass("active");
+        
+        //$(".iMNavigation ul li ,#mobnav ul li a[data-id='"+id+"']").addClass("active");
+        
+        this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active");
+        
+        var child = this.hasChild();
         
         // Nav Parent (aktiv)
-        if(this.activeArticle.parents("section").attr("data-haschild")){
-            var id = this.activeArticle.attr("data-parent-id");
-            $(".iMNavigation ul li a[data-id='"+id+"'],#mobnav ul li a[data-id='"+id+"']").addClass("active");
+        if(child){
+            var id = this.activeSection.find("article").first().attr("data-id");
+            this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active");
         }
         
         
         // Navigation left right
         if(this.activeArticle.offset()){
             var aktPos = this.top-this.activeArticle.position().top;
-            var hasChild = this.activeArticle.parents("section").attr("data-haschild");
-            if(aktPos < 300 && aktPos > -300 && hasChild){
+            if(aktPos < 300 && aktPos > -300 && child){
                 
                 if(this.activeArticle.prev().length){
                     this.buttonLeft.stop().fadeIn(500);
@@ -266,6 +320,21 @@ singlePage.prototype = {
             if(window.location.hash != "#"+t){
                 history.pushState(null, null,"#"+t);
             }
+        }
+    },
+
+    detectmob:function() { 
+        if( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            return true;
+        }else{
+            return false;
         }
     },
     
