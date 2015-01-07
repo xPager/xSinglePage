@@ -46,6 +46,7 @@ var xSinglePage = function(options,fx){
 		navHeightObj:$(".Navigation"),
         section:$("#xSinglePage section"),
 		article:$("#xSinglePage section article"),
+		fullHeight:false,
 		body:$("html, body"),
         window:$(window),
 		easing:"easeInOutExpo",
@@ -201,7 +202,12 @@ xSinglePage.prototype = {
     },
     
     setSize:function(fx){
+		if(this.fullHeight){
+            this.article.css('min-height',this.window.height());
+        }
+		
         this.article.width(this.body.width());
+		
         if(!this.detectmob()){
             this.scrollTo(fx);
         }
