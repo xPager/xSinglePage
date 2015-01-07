@@ -1,0 +1,186 @@
+#Loader{
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    font-size: 48px;
+    display:block;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+#Loader i{
+    width: 48px;
+    text-align: center;
+    padding-top: 3px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+}
+
+#xSinglePage .Navigation{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    width: 100%;
+    background-color:#eee;
+    z-index: 100;
+    min-height: 50px;
+}
+
+#xSinglePage .Navigation ul{
+    list-style: none;
+    padding:0px;
+    margin:0px;
+	min-height:50px;
+}
+
+#xSinglePage .Navigation ul li{
+    display: inline-block;
+}
+
+#xSinglePage .Navigation ul li a{
+    display:inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
+
+#xSinglePage .Navigation ul li a.active{
+    color: #000;
+}
+
+#xSinglePage .Navigation ul li ul{
+    position: absolute;
+    background-color:#eee;
+    display: none;
+}
+
+#xSinglePage .Navigation ul li:hover ul{
+    display: block;
+}
+
+#xSinglePage .Navigation ul li ul li{
+    display: block;
+    padding-left:10px;
+    padding-right:25px;
+}
+
+#xSinglePage .Navigation .mobil-nav-link{
+    text-align: right;
+    color: #fff;
+}
+
+#xSinglePage .Navigation .mobil-nav-link a{
+    font-size: 30px;
+}
+
+#xSinglePage section{
+    overflow: hidden;
+    padding-top: 25px;
+}
+
+
+#xSinglePage section .slider_content{
+    width:100000px;
+}
+
+#xSinglePage section article{
+    position:relative;
+    float:left;
+    min-height: 800px;
+	width:100%;
+}
+    
+
+#xSinglePage .singlenav{
+    color: #fff;
+    background-color:#000;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position:fixed;
+    top:50%;
+    margin-top: -25px;
+    z-index: 99;
+    display: none;
+    cursor: pointer;
+}
+
+#xSinglePage .button_right{
+    right: 0px;
+}
+
+#xSinglePage .singlenav.sperren{
+    opacity: 0.3;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+
+/* Mobile Nav
+-------------------------------------------------- */
+@media (max-width: 991px) {
+    #xSinglePage .Navigation{
+        overflow: hidden;
+    }
+    
+    #xSinglePage .Navigation ul{
+        margin-bottom: 40px;
+    }
+    
+    #xSinglePage .Navigation ul li{
+        display: block;
+    }
+    
+    #xSinglePage .Navigation ul li a{
+        display:inline-block;
+        height: 30px;
+        line-height: normal;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+
+/* Landscape phones and down
+-------------------------------------------------- */
+@media (max-width: 480px) {
+
+}
+
+/* Landscape phone to portrait tablet
+-------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 767px) {
+
+}
+
+/* Portrait tablet to landscape and desktop
+-------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Small desktop
+-------------------------------------------------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Large desktop
+-------------------------------------------------- */
+@media (min-width: 1200px) {
+
+}
