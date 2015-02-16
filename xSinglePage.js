@@ -24,12 +24,8 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-xPager - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.2.5
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.2.9 - 16.02.2015
 #####################################################################################################################*/
-
-/*
-Single Page
-*/
 
 var xSinglePage = function(options,fx){
 
@@ -38,17 +34,18 @@ var xSinglePage = function(options,fx){
 		top:$(window).scrollTop(),
 		activeArticle:false,
         keyControl:true,
-        touchControl:true, // Touch Control
-		loader:$("#Loader"),
-		navLinks:$('.Navigation ul li a,#mobnav ul li a'),
-        buttonLeft:$("#xSinglePage .button_left"),
-        buttonRight:$("#xSinglePage .button_right"),
-		navHeightObj:$(".Navigation"),
-        section:$("#xSinglePage section"),
-		article:$("#xSinglePage section article"),
-		fullHeight:false,
+        touchControl:true,                                                      // Touch Control
+		loader:$("#iMLoader"),
+		navLinks:$('.iMNavigation ul li a,#mobnav ul li a, .singlepageLink'),
+        buttonLeft:$(".imsinglepage .button_left"),
+        buttonRight:$(".imsinglepage .button_right"),
+		navHeightObj:$(".iMNavigation"),
+        section:$(".imsinglepage section"),
+		article:$(".imsinglepage section article"),
 		body:$("html, body"),
         window:$(window),
+		fullHeight:false,                                                       // Article min-Height  = Monitor Height
+        noteScrollNavigation:true,                                              // Beim Scrollen Navigationshöhe beachten
 		easing:"easeInOutExpo",
 		speed:500,
         googleTrackingID:false,
@@ -75,6 +72,7 @@ xSinglePage.prototype = {
         
         this.window.resize(function(){
             self.setSize();
+			self.setSectionSize();
         });
         
         this.navLinks.click(function(e){
@@ -128,6 +126,7 @@ xSinglePage.prototype = {
             self.top = $(this).scrollTop();
             self.setActiveSection();
             self.setStatus();
+			self.setSectionSize();
         });
         
         this.setStatus();
@@ -155,7 +154,13 @@ xSinglePage.prototype = {
         var obj = this.activeArticle;
         var pos = $(obj).position();
         if(pos){
-            this.body.stop().animate({scrollTop:pos.top-this.navHeightObj.height()},this.speed,this.easing,function(){
+            
+            var scrollPos = pos.top;
+            if(this.noteScrollNavigation){
+                scrollPos -= this.navHeightObj.height();
+            }
+            
+            this.body.stop().animate({scrollTop:scrollPos},this.speed,this.easing,function(){
                 var content = $(obj).parent(".slider_content");
                 var marginleft = parseInt(content.css("marginLeft"));
                 if(marginleft != "NaN"){
@@ -164,6 +169,7 @@ xSinglePage.prototype = {
                         obj.parents("section").attr("data-pos",obj.attr("data-id"));
                         self.setActiveSection();
                         self.setStatus();
+						self.setSectionSize();
                         if(fx){fx();}
                     });
                 }
@@ -202,15 +208,19 @@ xSinglePage.prototype = {
     },
     
     setSize:function(fx){
+	
 		if(this.fullHeight){
             this.article.css('min-height',this.window.height());
         }
 		
         this.article.width(this.body.width());
-		
         if(!this.detectmob()){
             this.scrollTo(fx);
         }
+    },
+	
+	setSectionSize:function(){
+        this.activeSection.css('height',this.activeArticle.height());
     },
     
     getArtikelbyId:function(id){
@@ -266,16 +276,14 @@ xSinglePage.prototype = {
         // Nav (aktiv)
         var id = this.activeArticle.parents("section").attr("data-pos");
         
-        //$(".iMNavigation ul li ,#mobnav ul li a[data-id='"+id+"']").addClass("active");
-        
-        this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active");
+        this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active").focus();
         
         var child = this.hasChild();
         
         // Nav Parent (aktiv)
         if(child){
             var id = this.activeSection.find("article").first().attr("data-id");
-            this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active");
+            this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active").focus();
         }
         
         

@@ -94,6 +94,12 @@
     width:100000px;
 }
 
+#xSinglePage section .slider_content:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+
 #xSinglePage section article{
     position:relative;
     float:left;
