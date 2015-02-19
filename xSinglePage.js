@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.2.9 - 16.02.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.0 - 19.02.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -35,13 +35,13 @@ var xSinglePage = function(options,fx){
 		activeArticle:false,
         keyControl:true,
         touchControl:true,                                                      // Touch Control
-		loader:$("#iMLoader"),
-		navLinks:$('.iMNavigation ul li a,#mobnav ul li a, .singlepageLink'),
-        buttonLeft:$(".imsinglepage .button_left"),
-        buttonRight:$(".imsinglepage .button_right"),
-		navHeightObj:$(".iMNavigation"),
-        section:$(".imsinglepage section"),
-		article:$(".imsinglepage section article"),
+		loader:$("#loader"),
+		navLinks:$('.navigation ul li a,#mobnav ul li a, .singlepageLink'),
+        buttonLeft:$(".xSinglePage .button_left"),
+        buttonRight:$(".xSinglePage .button_right"),
+		navHeightObj:$(".singlenav"),
+        section:$(".xSinglePage section"),
+		article:$(".xSinglePage section article"),
 		body:$("html, body"),
         window:$(window),
 		fullHeight:false,                                                       // Article min-Height  = Monitor Height
@@ -56,6 +56,7 @@ var xSinglePage = function(options,fx){
     
     this.activeArticle = this.article.first();
     this.activeSection = this.section.first();
+	this.metaTitel = $("title").html();
     
     this.init();
 }
@@ -69,6 +70,10 @@ xSinglePage.prototype = {
         
         this.activeArticle = this.getArtikelbyId(this.article.first().attr("data-id"));
         this.activeSection = this.getSectionByArtikel(this.activeArticle);
+        
+        if(this.navHeightObj){
+            this.section.first().css("marginTop",this.navHeightObj.height());
+        }
         
         this.window.resize(function(){
             self.setSize();
@@ -285,7 +290,13 @@ xSinglePage.prototype = {
             var id = this.activeSection.find("article").first().attr("data-id");
             this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active").focus();
         }
-        
+		
+		// Set Meta Title
+        if(this.activeArticle.data("meta-titel")){
+            $("title").html(this.activeArticle.data("meta-titel"));
+        }else{
+            $("title").html(this.metaTitel);
+        }
         
         // Navigation left right
         if(this.activeArticle.offset()){

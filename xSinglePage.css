@@ -1,4 +1,33 @@
-#Loader{
+/*#####################################################################################################################
+                                                                                                              
+                    PPPPPPPPPPPPPPPPP                                                                              
+                    P::::::::::::::::P                                                                             
+                    P::::::PPPPPP:::::P                                                                            
+                    PP:::::P     P:::::P                                                                           
+xxxxxxx      xxxxxxx  P::::P     P:::::Paaaaaaaaaaaaa     ggggggggg   ggggg    eeeeeeeeeeee    rrrrr   rrrrrrrrr   
+ x:::::x    x:::::x   P::::P     P:::::Pa::::::::::::a   g:::::::::ggg::::g  ee::::::::::::ee  r::::rrr:::::::::r  
+  x:::::x  x:::::x    P::::PPPPPP:::::P aaaaaaaaa:::::a g:::::::::::::::::g e::::::eeeee:::::eer:::::::::::::::::r 
+   x:::::xx:::::x     P:::::::::::::PP           a::::ag::::::ggggg::::::gge::::::e     e:::::err::::::rrrrr::::::r
+    x::::::::::x      P::::PPPPPPPPP      aaaaaaa:::::ag:::::g     g:::::g e:::::::eeeee::::::e r:::::r     r:::::r
+     x::::::::x       P::::P            aa::::::::::::ag:::::g     g:::::g e:::::::::::::::::e  r:::::r     rrrrrrr
+     x::::::::x       P::::P           a::::aaaa::::::ag:::::g     g:::::g e::::::eeeeeeeeeee   r:::::r            
+    x::::::::::x      P::::P          a::::a    a:::::ag::::::g    g:::::g e:::::::e            r:::::r            
+   x:::::xx:::::x   PP::::::PP        a::::a    a:::::ag:::::::ggggg:::::g e::::::::e           r:::::r            
+  x:::::x  x:::::x  P::::::::P        a:::::aaaa::::::a g::::::::::::::::g  e::::::::eeeeeeee   r:::::r            
+ x:::::x    x:::::x P::::::::P         a::::::::::aa:::a gg::::::::::::::g   ee:::::::::::::e   r:::::r            
+xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     eeeeeeeeeeeeee   rrrrrrr            
+                                                                   g:::::g                                         
+                                                       gggggg      g:::::g                                         
+                                                       g:::::gg   gg:::::g                                         
+                                                        g::::::ggg:::::::g                                         
+                                                         gg:::::::::::::g                                          
+                                                           ggg::::::ggg                                            
+                                                              gggggg
+															  
+© xPager - xGallery - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.2.0 - 19.02.2015
+#####################################################################################################################*/
+
+#loader{
     position:fixed;
     top: 0px;
     left: 0px;
@@ -10,7 +39,7 @@
     background-color: #fff;
 }
 
-#Loader i{
+#loader i{
     width: 48px;
     text-align: center;
     padding-top: 3px;
@@ -21,7 +50,7 @@
     margin-top: -25px;
 }
 
-#xSinglePage .Navigation{
+.xSinglePage .navigation{
     position: fixed;
     top:0px;
     left: 0px;
@@ -31,18 +60,18 @@
     min-height: 50px;
 }
 
-#xSinglePage .Navigation ul{
+.xSinglePage .navigation ul{
     list-style: none;
     padding:0px;
     margin:0px;
 	min-height:50px;
 }
 
-#xSinglePage .Navigation ul li{
+.xSinglePage .navigation ul li{
     display: inline-block;
 }
 
-#xSinglePage .Navigation ul li a{
+.xSinglePage .navigation ul li a{
     display:inline-block;
     height: 50px;
     line-height: 50px;
@@ -55,60 +84,58 @@
     -o-transition: all 0.2s;
 }
 
-#xSinglePage .Navigation ul li a.active{
+.xSinglePage .navigation ul li a.active{
     color: #000;
 }
 
-#xSinglePage .Navigation ul li ul{
+.xSinglePage .navigation ul li ul{
     position: absolute;
     background-color:#eee;
     display: none;
 }
 
-#xSinglePage .Navigation ul li:hover ul{
+.xSinglePage .navigation ul li:hover ul{
     display: block;
 }
 
-#xSinglePage .Navigation ul li ul li{
+.xSinglePage .navigation ul li ul li{
     display: block;
     padding-left:10px;
     padding-right:25px;
 }
 
-#xSinglePage .Navigation .mobil-nav-link{
+.xSinglePage .navigation .mobil-nav-link{
     text-align: right;
     color: #fff;
 }
 
-#xSinglePage .Navigation .mobil-nav-link a{
+.xSinglePage .navigation .mobil-nav-link a{
     font-size: 30px;
 }
 
-#xSinglePage section{
+.xSinglePage section{
     overflow: hidden;
-    padding-top: 25px;
 }
 
 
-#xSinglePage section .slider_content{
+.xSinglePage section .slider_content{
     width:100000px;
 }
 
-#xSinglePage section .slider_content:after{
+.xSinglePage section .slider_content:after{
     content:"";
     display: block;
     clear: both;
 }
 
-#xSinglePage section article{
+.xSinglePage section article{
     position:relative;
     float:left;
     min-height: 800px;
 	width:100%;
 }
-    
 
-#xSinglePage .singlenav{
+.xSinglePage .singlenav{
     color: #fff;
     background-color:#000;
     font-size: 40px;
@@ -124,11 +151,11 @@
     cursor: pointer;
 }
 
-#xSinglePage .button_right{
+.xSinglePage .button_right{
     right: 0px;
 }
 
-#xSinglePage .singlenav.sperren{
+.xSinglePage .singlenav.sperren{
     opacity: 0.3;
 }
 
@@ -139,19 +166,19 @@
 /* Mobile Nav
 -------------------------------------------------- */
 @media (max-width: 991px) {
-    #xSinglePage .Navigation{
+    .xSinglePage .navigation{
         overflow: hidden;
     }
     
-    #xSinglePage .Navigation ul{
+    .xSinglePage .navigation ul{
         margin-bottom: 40px;
     }
     
-    #xSinglePage .Navigation ul li{
+    .xSinglePage .navigation ul li{
         display: block;
     }
     
-    #xSinglePage .Navigation ul li a{
+    .xSinglePage .navigation ul li a{
         display:inline-block;
         height: 30px;
         line-height: normal;
