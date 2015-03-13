@@ -35,6 +35,7 @@ var xSinglePage = function(options,fx){
 		activeArticle:false,
         keyControl:true,
         touchControl:true,                                                      // Touch Control
+        scrollbar:true,                                                         // Scrollbar Show
 		loader:$("#loader"),
 		navLinks:$('.navigation ul li a,#mobnav ul li a, .singlepageLink'),
         buttonLeft:$(".xSinglePage .button_left"),
@@ -44,7 +45,7 @@ var xSinglePage = function(options,fx){
 		article:$(".xSinglePage section article"),
 		body:$("html, body"),
         window:$(window),
-		fullHeight:false,                                                       // Article min-Height  = Monitor Height
+		fullHeight:true,                                                       // Article min-Height = Monitor Height
         noteScrollNavigation:true,                                              // Beim Scrollen Navigationshöhe beachten
 		easing:"easeInOutExpo",
 		speed:500,
@@ -126,6 +127,12 @@ xSinglePage.prototype = {
 				self.touchEnd = 0;
 			});
 		}
+        
+        
+        if(!this.scrollbar){
+            this.body.addClass("overflow");
+        }
+        
         
         this.window.scroll(function(){
             self.top = $(this).scrollTop();
