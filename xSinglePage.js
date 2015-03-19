@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.0 - 19.02.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.1 - 19.03.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -40,17 +40,17 @@ var xSinglePage = function(options,fx){
 		navLinks:$('.navigation ul li a,#mobnav ul li a, .singlepageLink'),
         buttonLeft:$(".xSinglePage .button_left"),
         buttonRight:$(".xSinglePage .button_right"),
-		navHeightObj:$(".singlenav"),
+		navHeightObj:$("header"),
         section:$(".xSinglePage section"),
 		article:$(".xSinglePage section article"),
 		body:$("html, body"),
         window:$(window),
-		fullHeight:true,                                                       // Article min-Height = Monitor Height
+		fullHeight:true,                                                        // Article min-Height = Monitor Height
         noteScrollNavigation:true,                                              // Beim Scrollen Navigationshöhe beachten
-		easing:"easeInOutExpo",
-		speed:500,
-        googleTrackingID:false,
-        startHash:window.location.hash
+		easing:"easeInOutExpo",                                                 // Animation Type (Jquery UI Easing)
+		speed:500,                                                              // Animation Speed
+        googleTrackingID:false,                                                 // Google Analytics
+        startHash:window.location.hash                                          // First hash Name
 	}, options);
     
     for(var name in this.options){eval("this."+name+"=this.options."+name);}
@@ -72,7 +72,7 @@ xSinglePage.prototype = {
         this.activeArticle = this.getArtikelbyId(this.article.first().attr("data-id"));
         this.activeSection = this.getSectionByArtikel(this.activeArticle);
         
-        if(this.navHeightObj){
+        if(this.navHeightObj && this.noteScrollNavigation){
             this.section.first().css("marginTop",this.navHeightObj.height());
         }
         
