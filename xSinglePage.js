@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.1 - 19.03.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.2 - 24.03.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -32,8 +32,8 @@ var xSinglePage = function(options,fx){
     this.options = $.extend({
 		topStart:0,
 		top:$(window).scrollTop(),
-		activeArticle:false,
-        keyControl:true,
+		activeArticle:false,                                                    // Start mit Artikel
+        keyControl:true,                                                        // Key Control
         touchControl:true,                                                      // Touch Control
         scrollbar:true,                                                         // Scrollbar Show
 		loader:$("#loader"),
@@ -217,6 +217,11 @@ xSinglePage.prototype = {
             this.activeArticle = this.getArtikelbyId(down.attr("data-pos"));
             this.scrollTo();
          }
+    },
+    
+    scrollTop:function(){
+        this.activeArticle = this.article.first();
+        this.scrollTo();
     },
     
     setSize:function(fx){
