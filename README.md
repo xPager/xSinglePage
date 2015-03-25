@@ -119,6 +119,12 @@ $(document).ready(function(){
 	</thead>
 	<tbody>
 		<tr>
+			<td>navLinks</td>
+			<td>object(jquery)</td>
+			<td>$('.navigation ul li a,#mobnav ul li a, .singlepageLink')</td>
+			<td>Links for controlling</td>
+		</tr>
+		<tr>
 			<td>activeArticle</td>
 			<td>object(jquery)</td>
 			<td>false</td>
@@ -134,7 +140,7 @@ $(document).ready(function(){
 			<td>touchControl</td>
 			<td>boolen</td>
 			<td>true</td>
-      <td>Touch Control</td>
+      			<td>Touch Control</td>
 		</tr>
 		<tr>
 			<td>scrollbar</td>
@@ -146,13 +152,13 @@ $(document).ready(function(){
 			<td>fullHeight</td>
 			<td>boolen</td>
 			<td>true</td>
-      <td>Article min-height = monitor height</td>
+      			<td>Article min-height = monitor height</td>
 		</tr>
 		<tr>
 			<td>noteScrollNavigation</td>
 			<td>boolen</td>
 			<td>true</td>
-      <td>Note Navigation by article Scroll</td>
+      			<td>Note Navigation by article Scroll</td>
 		</tr>
 		<tr>
 			<td>easing</td>
