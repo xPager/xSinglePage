@@ -1,7 +1,9 @@
 xSinglePage
 ===========
 Easy Singlepage script
+
 [Singlepage - Webseite]
+[Singlepage - Webseite]:http://xpager.ch/entwicklung/singlepage/
 
 ## Installation
 
@@ -198,4 +200,4 @@ $(document).ready(function(){
   ...
 });
 
-[Singlepage - Webseite]:http://xpager.ch/entwicklung/singlepage/
+
