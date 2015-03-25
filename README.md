@@ -182,7 +182,7 @@ $(document).ready(function(){
 </table>
 
 ## Functions
-Alle Funktionen können direkt verwendet werden.
+All functions can be used directly.
 ``` js
 var s;
 $(document).ready(function(){
