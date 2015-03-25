@@ -181,4 +181,21 @@ $(document).ready(function(){
 	</tbody>
 </table>
 
+## Functions
+Alle Funktionen können direkt verwendet werden.
+``` js
+var s;
+$(document).ready(function(){
+  s = new xSinglePage();
+  
+  $("#nextButton").click(function(){
+  	s.next();
+  });
+  
+  $("#topButton").click(function(){
+  	s.scrollTop();
+  });
+  ...
+});
+
 [Singlepage - Webseite]:http://xpager.ch/entwicklung/singlepage/
