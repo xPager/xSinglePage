@@ -47,6 +47,7 @@ $(window).load(function(){
 <div class="button_right singlenav">
   <i class="fa fa-angle-right"></i>
 </div>
+<div class="button_down singlenav"></div>
 
 <header class="navigation">
   <div class="container">
