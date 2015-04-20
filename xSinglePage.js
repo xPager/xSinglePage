@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.2 - 24.03.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.3 - 20.04.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -40,6 +40,7 @@ var xSinglePage = function(options,fx){
 		navLinks:$('.navigation ul li a,#mobnav ul li a, .singlepageLink'),
         buttonLeft:$(".xSinglePage .button_left"),
         buttonRight:$(".xSinglePage .button_right"),
+        buttonDown:$(".xSinglePage .button_down"),
 		navHeightObj:$("header"),
         section:$(".xSinglePage section"),
 		article:$(".xSinglePage section article"),
@@ -95,6 +96,10 @@ xSinglePage.prototype = {
         
         this.buttonLeft.click(function(){
             self.prev();
+        });
+        
+        this.buttonDown.click(function(){
+            self.down(); 
         });
         
         if(this.keyControl){
@@ -166,57 +171,65 @@ xSinglePage.prototype = {
         var obj = this.activeArticle;
         var pos = $(obj).position();
         if(pos){
-            
             var scrollPos = pos.top;
             if(this.noteScrollNavigation){
                 scrollPos -= this.navHeightObj.height();
             }
-            
             this.body.stop().animate({scrollTop:scrollPos},this.speed,this.easing,function(){
                 var content = $(obj).parent(".slider_content");
                 var marginleft = parseInt(content.css("marginLeft"));
                 if(marginleft != "NaN"){
                     var left = marginleft - pos.left;
-                    $(obj).parent(".slider_content").stop().animate({marginLeft:left},self.speed,self.easing,function(){
-                        obj.parents("section").attr("data-pos",obj.attr("data-id"));
-                        self.setActiveSection();
+                    if($(obj).parent(".slider_content").length){
+                        $(obj).parent(".slider_content").stop().animate({marginLeft:left},self.speed,self.easing,function(){
+                            obj.parents("section").attr("data-pos",obj.attr("data-id"));
+                            self.setActiveSection();
+                            self.setStatus();
+    						self.setSectionSize();
+                            if(fx){fx();}
+                        }); 
+                    }else{
                         self.setStatus();
-						self.setSectionSize();
+  						self.setSectionSize();
                         if(fx){fx();}
-                    });
+                    }
+                }else{
+                    if(fx){fx();}
                 }
             });
         }
     },
     
-    next:function(){
+    next:function(fx){
         if(this.activeArticle.next().length){
             this.activeArticle = this.activeArticle.next();
-            this.scrollTo();
+            this.scrollTo(fx);
         }
     },
     
-    prev:function(){
+    prev:function(fx){
         if(this.activeArticle.prev().length){
             this.activeArticle = this.activeArticle.prev();
-            this.scrollTo();
+            this.scrollTo(fx);
         }
     },
     
-    up:function(){
+    up:function(fx){
          var up = this.activeArticle.parents("section").prev("section");
          if(up.length){
             this.activeArticle = this.getArtikelbyId(up.attr("data-pos"));
-            this.scrollTo();
+            this.scrollTo(fx);
          }
     },
     
-    down:function(){
+    down:function(fx){
         var down = this.activeArticle.parents("section").next("section");
-         if(down.length){
+        if(down.length){
             this.activeArticle = this.getArtikelbyId(down.attr("data-pos"));
-            this.scrollTo();
-         }
+            this.scrollTo(fx);
+        }else{
+            this.scrollTop();
+        }
     },
     
     scrollTop:function(){
@@ -225,11 +238,9 @@ xSinglePage.prototype = {
     },
     
     setSize:function(fx){
-	
 		if(this.fullHeight){
             this.article.css('min-height',this.window.height());
         }
-		
         this.article.width(this.body.width());
         if(!this.detectmob()){
             this.scrollTo(fx);
@@ -291,16 +302,16 @@ xSinglePage.prototype = {
         this.navLinks.removeClass("active");
         
         // Nav (aktiv)
-        var id = this.activeArticle.parents("section").attr("data-pos");
+        var sectionId = this.activeSection.attr("data-pos");
         
-        this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active").focus();
+        this.navLinks.parents("li").find("a[data-id='"+sectionId+"']").addClass("active").focus();
         
         var child = this.hasChild();
         
         // Nav Parent (aktiv)
         if(child){
-            var id = this.activeSection.find("article").first().attr("data-id");
-            this.navLinks.parents("li").find("a[data-id='"+id+"']").addClass("active").focus();
+            var articleId = this.activeSection.find("article").first().attr("data-id");
+            this.navLinks.parents("li").find("a[data-id='"+articleId+"']").addClass("active").focus();
         }
 		
 		// Set Meta Title
@@ -333,7 +344,16 @@ xSinglePage.prototype = {
             }
         }
         
-       
+        // Navigation down
+        if(this.buttonDown.length){
+            if(sectionId == this.section.last().attr("data-pos")){
+                this.buttonDown.addClass("up");
+                this.buttonDown.removeClass("down");
+            }else{
+                this.buttonDown.removeClass("up");
+                this.buttonDown.addClass("down");
+            }
+        }
     },
     
     initGoogleAnalytics:function(){
