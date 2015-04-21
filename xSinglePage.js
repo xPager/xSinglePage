@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.3 - 20.04.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.4 - 21.04.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -119,10 +119,12 @@ xSinglePage.prototype = {
 				self.touchEnd = 0;
 			});
 			$(this.body).bind('touchmove MSPointerMove pointermove',function(e){
-				if(self.touchStart == false){
+				if(self.touchStart == false && e.originalEvent.touches){
 					self.touchStart = e.originalEvent.touches[0].pageX;
 				}
-				self.touchEnd = e.originalEvent.touches[0].pageX;
+                if(e.originalEvent.touches){
+                    self.touchEnd = e.originalEvent.touches[0].pageX;
+                }
 			});
 			$(this.body).bind('touchend MSPointerUp pointerup',function(e){
 				var res = self.touchEnd-self.touchStart;
