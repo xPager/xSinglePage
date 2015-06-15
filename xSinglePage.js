@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.4 - 21.04.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.5 - 15.06.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -51,7 +51,8 @@ var xSinglePage = function(options,fx){
 		easing:"easeInOutExpo",                                                 // Animation Type (Jquery UI Easing)
 		speed:500,                                                              // Animation Speed
         googleTrackingID:false,                                                 // Google Analytics
-        startHash:window.location.hash                                          // First hash Name
+        startHash:window.location.hash,                                         // First hash Name
+		scrollEndEvent:false													// End Scroll Function
 	}, options);
     
     for(var name in this.options){eval("this."+name+"=this.options."+name);}
@@ -155,6 +156,11 @@ xSinglePage.prototype = {
         var self = this;
         setTimeout(function(){
             self.body.stop().scrollTop(0);
+			
+			self.section.each(function(){
+               $(this).css('height',$(this).find("article").first().height()); 
+            });
+			
             self.loader.fadeOut(500,function(){
                 // go to Page (hash)
                 if(self.startHash){
@@ -189,14 +195,17 @@ xSinglePage.prototype = {
                             self.setStatus();
     						self.setSectionSize();
                             if(fx){fx();}
+							if(self.scrollEndEvent){self.scrollEndEvent();}
                         }); 
                     }else{
                         self.setStatus();
   						self.setSectionSize();
                         if(fx){fx();}
+						if(self.scrollEndEvent){self.scrollEndEvent();}
                     }
                 }else{
                     if(fx){fx();}
+					if(self.scrollEndEvent){self.scrollEndEvent();}
                 }
             });
         }
