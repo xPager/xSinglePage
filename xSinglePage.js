@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.5 - 15.06.2015
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.5 - 16.06.2015
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
