@@ -129,8 +129,8 @@ xSinglePage.prototype = {
 			});
 			$(this.body).bind('touchend MSPointerUp pointerup',function(e){
 				var res = self.touchEnd-self.touchStart;
-				if(res < 0 && res < -50){self.next();}
-				if(res > 0 && res > 50){self.prev();}
+				if(res < 0 && res < -150){self.next();}
+				if(res > 0 && res > 150){self.prev();}
 				self.touchStart = false;
 				self.touchEnd = 0;
 			});
