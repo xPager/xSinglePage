@@ -1,29 +1,29 @@
 /*#####################################################################################################################
-                                                                                                              
-                    PPPPPPPPPPPPPPPPP                                                                              
-                    P::::::::::::::::P                                                                             
-                    P::::::PPPPPP:::::P                                                                            
-                    PP:::::P     P:::::P                                                                           
-xxxxxxx      xxxxxxx  P::::P     P:::::Paaaaaaaaaaaaa     ggggggggg   ggggg    eeeeeeeeeeee    rrrrr   rrrrrrrrr   
- x:::::x    x:::::x   P::::P     P:::::Pa::::::::::::a   g:::::::::ggg::::g  ee::::::::::::ee  r::::rrr:::::::::r  
-  x:::::x  x:::::x    P::::PPPPPP:::::P aaaaaaaaa:::::a g:::::::::::::::::g e::::::eeeee:::::eer:::::::::::::::::r 
+
+                    PPPPPPPPPPPPPPPPP
+                    P::::::::::::::::P
+                    P::::::PPPPPP:::::P
+                    PP:::::P     P:::::P
+xxxxxxx      xxxxxxx  P::::P     P:::::Paaaaaaaaaaaaa     ggggggggg   ggggg    eeeeeeeeeeee    rrrrr   rrrrrrrrr
+ x:::::x    x:::::x   P::::P     P:::::Pa::::::::::::a   g:::::::::ggg::::g  ee::::::::::::ee  r::::rrr:::::::::r
+  x:::::x  x:::::x    P::::PPPPPP:::::P aaaaaaaaa:::::a g:::::::::::::::::g e::::::eeeee:::::eer:::::::::::::::::r
    x:::::xx:::::x     P:::::::::::::PP           a::::ag::::::ggggg::::::gge::::::e     e:::::err::::::rrrrr::::::r
     x::::::::::x      P::::PPPPPPPPP      aaaaaaa:::::ag:::::g     g:::::g e:::::::eeeee::::::e r:::::r     r:::::r
      x::::::::x       P::::P            aa::::::::::::ag:::::g     g:::::g e:::::::::::::::::e  r:::::r     rrrrrrr
-     x::::::::x       P::::P           a::::aaaa::::::ag:::::g     g:::::g e::::::eeeeeeeeeee   r:::::r            
-    x::::::::::x      P::::P          a::::a    a:::::ag::::::g    g:::::g e:::::::e            r:::::r            
-   x:::::xx:::::x   PP::::::PP        a::::a    a:::::ag:::::::ggggg:::::g e::::::::e           r:::::r            
-  x:::::x  x:::::x  P::::::::P        a:::::aaaa::::::a g::::::::::::::::g  e::::::::eeeeeeee   r:::::r            
- x:::::x    x:::::x P::::::::P         a::::::::::aa:::a gg::::::::::::::g   ee:::::::::::::e   r:::::r            
-xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     eeeeeeeeeeeeee   rrrrrrr            
-                                                                   g:::::g                                         
-                                                       gggggg      g:::::g                                         
-                                                       g:::::gg   gg:::::g                                         
-                                                        g::::::ggg:::::::g                                         
-                                                         gg:::::::::::::g                                          
-                                                           ggg::::::ggg                                            
+     x::::::::x       P::::P           a::::aaaa::::::ag:::::g     g:::::g e::::::eeeeeeeeeee   r:::::r
+    x::::::::::x      P::::P          a::::a    a:::::ag::::::g    g:::::g e:::::::e            r:::::r
+   x:::::xx:::::x   PP::::::PP        a::::a    a:::::ag:::::::ggggg:::::g e::::::::e           r:::::r
+  x:::::x  x:::::x  P::::::::P        a:::::aaaa::::::a g::::::::::::::::g  e::::::::eeeeeeee   r:::::r
+ x:::::x    x:::::x P::::::::P         a::::::::::aa:::a gg::::::::::::::g   ee:::::::::::::e   r:::::r
+xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     eeeeeeeeeeeeee   rrrrrrr
+                                                                   g:::::g
+                                                       gggggg      g:::::g
+                                                       g:::::gg   gg:::::g
+                                                        g::::::ggg:::::::g
+                                                         gg:::::::::::::g
+                                                           ggg::::::ggg
                                                               gggggg
-															  
+
 © xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.5 - 16.06.2015
 #####################################################################################################################*/
 
@@ -54,35 +54,35 @@ var xSinglePage = function(options,fx){
         startHash:window.location.hash,                                         // First hash Name
 		scrollEndEvent:false													// End Scroll Function
 	}, options);
-    
+
     for(var name in this.options){eval("this."+name+"=this.options."+name);}
-    
+
     this.activeArticle = this.article.first();
     this.activeSection = this.section.first();
 	this.metaTitel = $("title").html();
-    
+
     this.init();
 }
 
 xSinglePage.prototype = {
     init:function(){
         var self = this;
-        
+
         this.setSize();
         this.initGoogleAnalytics();
-        
+
         this.activeArticle = this.getArtikelbyId(this.article.first().attr("data-id"));
         this.activeSection = this.getSectionByArtikel(this.activeArticle);
-        
+
         if(this.navHeightObj && this.noteScrollNavigation){
             this.section.first().css("marginTop",this.navHeightObj.height());
         }
-        
+
         this.window.resize(function(){
             self.setSize();
 			self.setSectionSize();
         });
-        
+
         this.navLinks.click(function(e){
             e.preventDefault();
             if($(this).attr("data-id") != "undefined"){
@@ -90,28 +90,28 @@ xSinglePage.prototype = {
                 self.scrollTo();
             }
         });
-        
+
         this.buttonRight.click(function(){
             self.next();
         });
-        
+
         this.buttonLeft.click(function(){
             self.prev();
         });
-        
+
         this.buttonDown.click(function(){
-            self.down(); 
+            self.down();
         });
-        
+
         if(this.keyControl){
 			$(document).keydown(function(e){
                 if (e.keyCode == 38){e.preventDefault(); self.up();}
 				if (e.keyCode == 37){e.preventDefault(); self.prev();}
 				if (e.keyCode == 39){e.preventDefault(); self.next();}
                 if (e.keyCode == 40){e.preventDefault(); self.down();}
-			});	
+			});
 		}
-        
+
        	if(this.touchControl){
 			this.touchStart = false;
 			this.touchEnd= false;
@@ -135,32 +135,32 @@ xSinglePage.prototype = {
 				self.touchEnd = 0;
 			});
 		}
-        
-        
+
+
         if(!this.scrollbar){
             this.body.addClass("overflow");
         }
-        
-        
+
+
         this.window.scroll(function(){
             self.top = $(this).scrollTop();
             self.setActiveSection();
             self.setStatus();
 			self.setSectionSize();
         });
-        
+
         this.setStatus();
     },
-    
+
     start:function(){
         var self = this;
         setTimeout(function(){
             self.body.stop().scrollTop(0);
-			
+
 			self.section.each(function(){
-               $(this).css('height',$(this).find("article").first().height()); 
+               $(this).css('height',$(this).find("article").first().height());
             });
-			
+
             self.loader.fadeOut(500,function(){
                 // go to Page (hash)
                 if(self.startHash){
@@ -171,9 +171,9 @@ xSinglePage.prototype = {
                 }
             });
         },200);
-        
+
     },
-    
+
     scrollTo:function(fx){
         var self = this;
         var obj = this.activeArticle;
@@ -196,7 +196,7 @@ xSinglePage.prototype = {
     						self.setSectionSize();
                             if(fx){fx();}
 							if(self.scrollEndEvent){self.scrollEndEvent();}
-                        }); 
+                        });
                     }else{
                         self.setStatus();
   						self.setSectionSize();
@@ -210,21 +210,21 @@ xSinglePage.prototype = {
             });
         }
     },
-    
+
     next:function(fx){
         if(this.activeArticle.next().length){
             this.activeArticle = this.activeArticle.next();
             this.scrollTo(fx);
         }
     },
-    
+
     prev:function(fx){
         if(this.activeArticle.prev().length){
             this.activeArticle = this.activeArticle.prev();
             this.scrollTo(fx);
         }
     },
-    
+
     up:function(fx){
          var up = this.activeArticle.parents("section").prev("section");
          if(up.length){
@@ -232,7 +232,7 @@ xSinglePage.prototype = {
             this.scrollTo(fx);
          }
     },
-    
+
     down:function(fx){
         var down = this.activeArticle.parents("section").next("section");
         if(down.length){
@@ -242,12 +242,12 @@ xSinglePage.prototype = {
             this.scrollTop();
         }
     },
-    
+
     scrollTop:function(){
         this.activeArticle = this.article.first();
         this.scrollTo();
     },
-    
+
     setSize:function(fx){
 		if(this.fullHeight){
             this.article.css('min-height',this.window.height());
@@ -257,23 +257,23 @@ xSinglePage.prototype = {
             this.scrollTo(fx);
         }
     },
-	
+
 	setSectionSize:function(){
         this.activeSection.css('height',this.activeArticle.height());
     },
-    
+
     getArtikelbyId:function(id){
         return this.section.find("article[data-id='"+id+"']");
     },
-    
+
     getArtikelbyTitel:function(titel){
         return this.section.find("article[data-titel='"+titel+"']");
     },
-    
+
     getSectionByArtikel:function(obj){
         return obj.parents("section");
     },
-    
+
     hasChild:function(){
         if(this.activeSection.find("article").length >1){
             return true;
@@ -286,13 +286,13 @@ xSinglePage.prototype = {
         var self = this;
         this.section.each(function(i,obj){
             var pos = $(obj).position();
-            
+
             if($(window).scrollTop()+ $(window).height() < $(document).height()-200){
                 if(pos.top < self.top+250 && (pos.top+$(obj).height()) > self.top+250){
-                    
+
                     self.activeArticle = self.getArtikelbyId($(this).attr("data-pos"));
                     self.activeSection = self.getSectionByArtikel(self.activeArticle);
-                    
+
                     var titel = self.activeArticle.attr("data-titel");
                     self.setGoogleAnalyticsTrack(titel);
                     self.setHash(titel);
@@ -301,7 +301,7 @@ xSinglePage.prototype = {
                 //Letzter Artikel Aktiv falls zu klein
                 self.activeArticle = self.getArtikelbyId($(self.section).last().attr("data-pos"));
                 self.activeSection = self.getSectionByArtikel(self.activeArticle);
-                
+
                 var titel = self.activeArticle.attr("data-titel");
                 self.setGoogleAnalyticsTrack(titel);
                 self.setHash(titel);
@@ -311,50 +311,50 @@ xSinglePage.prototype = {
 
     setStatus:function(){
         this.navLinks.removeClass("active");
-        
+
         // Nav (aktiv)
         var sectionId = this.activeSection.attr("data-pos");
-        
-        this.navLinks.parents("li").find("a[data-id='"+sectionId+"']").addClass("active").focus();
-        
+
+        this.navLinks.parents("li").find("a[data-id='"+sectionId+"']").addClass("active");
+
         var child = this.hasChild();
-        
+
         // Nav Parent (aktiv)
         if(child){
             var articleId = this.activeSection.find("article").first().attr("data-id");
-            this.navLinks.parents("li").find("a[data-id='"+articleId+"']").addClass("active").focus();
+            this.navLinks.parents("li").find("a[data-id='"+articleId+"']").addClass("active");
         }
-		
+
 		// Set Meta Title
         if(this.activeArticle.data("meta-titel")){
             $("title").html(this.activeArticle.data("meta-titel"));
         }else{
             $("title").html(this.metaTitel);
         }
-        
+
         // Navigation left right
         if(this.activeArticle.offset()){
             var aktPos = this.top-this.activeArticle.position().top;
             if(aktPos < 300 && aktPos > -300 && child){
-                
+
                 if(this.activeArticle.prev().length){
                     this.buttonLeft.stop().fadeIn(500);
                 }else{
                     this.buttonLeft.stop().fadeOut(500);
                 }
-                
+
                 if(this.activeArticle.next().length){
                     this.buttonRight.stop().fadeIn(500);
                 }else{
                     this.buttonRight.stop().fadeOut(500);
                 }
-                
+
             }else{
                 this.buttonLeft.stop().fadeOut(500);
                 this.buttonRight.stop().fadeOut(500);
             }
         }
-        
+
         // Navigation down
         if(this.buttonDown.length){
             if(sectionId == this.section.last().attr("data-pos")){
@@ -366,7 +366,7 @@ xSinglePage.prototype = {
             }
         }
     },
-    
+
     initGoogleAnalytics:function(){
         if(this.googleTrackingID){
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -376,13 +376,13 @@ xSinglePage.prototype = {
             ga('create',this.googleTrackingID, 'auto');
         }
     },
-    
+
     setGoogleAnalyticsTrack:function(page){
         if(this.googleTrackingID){
             ga('send', 'pageview',page);
         }
     },
-    
+
     setHash:function(t){
         if(typeof(history.pushState) == 'function'){
             if(window.location.hash != "#"+t){
@@ -391,7 +391,7 @@ xSinglePage.prototype = {
         }
     },
 
-    detectmob:function() { 
+    detectmob:function() {
         if( navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
         || navigator.userAgent.match(/iPhone/i)
@@ -405,7 +405,7 @@ xSinglePage.prototype = {
             return false;
         }
     },
-    
+
    	// Console (iPad,Mobile,.....)
 	message:function(txt){
 		if($("#cis_error_message").length){
@@ -416,7 +416,7 @@ xSinglePage.prototype = {
 			var html = "<div id='cis_error_message' style='position:fixed; top:10px; left:10px; z-index:100000; height:100px; width:250px; border:solid 2px #000; display:none;background-color:#fff; overflow: auto;'>";
 			html += "<h3 id='cis_error_message_titel' style='display:block; text-align:center; background-color:#666; color:#fff; font-size:12px; line-height: 25px!important; margin:0px;'>ERROR</h3>";
 			html += "<div class='cis_error_message' style='font-size:10px; text-align:left; line-height: 25px; border-bottom:solid 1px #ddd; padding-left:5px;'><div>";
-			html += "</div>";			
+			html += "</div>";
 			$(".imsinglepage").append(html);
 			$(".cis_error_message").text("- "+txt);
 			$("#cis_error_message").fadeIn(500);
