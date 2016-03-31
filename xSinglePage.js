@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg
                                                               gggggg
 
-© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.5 - 03.03.2016
+© xPager - xSinglePage - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.3.6 - 31.03.2016
 #####################################################################################################################*/
 
 var xSinglePage = function(options,fx){
@@ -52,7 +52,8 @@ var xSinglePage = function(options,fx){
 		speed:500,                                                              // Animation Speed
         googleTrackingID:false,                                                 // Google Analytics
         startHash:window.location.hash,                                         // First hash Name
-		scrollEndEvent:false													// End Scroll Function
+		scrollEndEvent:false,													// End Scroll Function
+        statusEvent:false                                                       // End Status Function
 	}, options);
 
     for(var name in this.options){eval("this."+name+"=this.options."+name);}
@@ -365,6 +366,9 @@ xSinglePage.prototype = {
                 this.buttonDown.addClass("down");
             }
         }
+
+        // Status End Event
+        if(this.statusEvent){this.statusEvent();}
     },
 
     initGoogleAnalytics:function(){
